@@ -712,10 +712,6 @@ function d_barriers()
             if b.near and game_state=="play" then
                 print("\x8e",b.x+4,b.y+b.h+2,7)
             end
-            --enemigos que quedan (salida de la cueva)
-            if b==barriers.cave_out then
-                print("enemies: "..b.left,b.x-10,b.y+b.h+4,8)
-            end
         end
     end
 end

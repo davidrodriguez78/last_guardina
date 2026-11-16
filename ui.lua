@@ -76,6 +76,12 @@ end
 function d_ui()
     --hub--
     rrectfill(0,0,128,8,0,0)
+    --enemigos que quedan en la cueva (visible en toda la cueva)
+    local left=barriers.cave_out.left or 0
+    if is_cave(room_x,room_y) and left>0 then
+        local s="enemies: "..left
+        print(s,64-#s*2,10,8)
+    end
     --dialogo--
     d_dlg()
     --sword and helm
