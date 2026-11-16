@@ -30,7 +30,7 @@ function _update60()
         u_dlg()
     elseif game_state=="over" then
         --reiniciar
-        if btnp(4) or btnp(5) then _init() end
+        if btnp(4) then _init() end
     end
 end
 
@@ -59,7 +59,7 @@ function _draw()
         rectfill(24,52,103,75,0)
         rect(24,52,103,75,8)
         print("game over",46,57,8)
-        print("\x8e/\x97 restart",38,66,7)
+        print("🅾️ restart",38,66,7)
     end
 
     --fundido (oscurece toda la pantalla)
