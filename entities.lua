@@ -67,16 +67,16 @@ end
 --spd:    velocidad persiguiendo
 --fly:    true = flota (ignora muros)
 --aspd:   frames entre fotogramas
---hp:     golpes de espada que aguanta
+--hp:     vida (la espada quita atk de la armadura)
 --col:    color de la explosion al morir
 --coin:   probabilidad de soltar moneda (0-1)
 --bag:    probabilidad de soltar bolsa (0-1)
 --dmg:    dano que hace al player (vida max 100)
 etypes={
-    {name="slime", frames={104,105,106,105}, spd=0.35, aspd=10, hp=2, col=12, dmg=10, coin=0.5, bag=0.1},
-    {name="worm",  frames={107,108},         spd=0.25, aspd=14, hp=1, col=14, dmg=8, coin=0.4, bag=0.05},
-    {name="flyeye",frames={109},             spd=0.55, fly=true, hp=2, col=11, dmg=12, coin=0.6, bag=0.15},
-    {name="skull", frames={110},             spd=0.45, fly=true, hp=3, col=7, dmg=15, coin=0.6, bag=0.25},
+    {name="slime", frames={104,105,106,105}, spd=0.35, aspd=10, hp=4, col=12, dmg=12, coin=0.5, bag=0.1},
+    {name="worm",  frames={107,108},         spd=0.25, aspd=14, hp=2, col=14, dmg=10, coin=0.4, bag=0.05},
+    {name="flyeye",frames={109},             spd=0.55, fly=true, hp=4, col=11, dmg=15, coin=0.6, bag=0.15},
+    {name="skull", frames={110},             spd=0.45, fly=true, hp=6, col=7, dmg=20, coin=0.6, bag=0.25},
 }
 
 knock=2.5   --fuerza del empujon al golpear
@@ -146,7 +146,7 @@ end
 
 --golpear enemigo
 function hit_enemy(e,px,py)
-    e.hp-=1
+    e.hp-=plr_atk()
     e.inv=15
     e.chase=true
     if e.hp<=0 then

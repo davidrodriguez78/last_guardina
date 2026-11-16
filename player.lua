@@ -150,17 +150,24 @@ end
 
 --armaduras
 --def: cuanto dano quita (0.25 = 25% menos)
+--atk: dano de la espada con esa armadura
 --ui:  sprites del hud (casco, pecho, botas)
 --commander y hero: cambiar sprites cuando existan
 armors={
-    {name="soldier",   def=0.25, ui={84,96,121}},
-    {name="commander", def=0.5,  ui={84,96,121}},
-    {name="hero",      def=0.75, ui={84,96,121}},
+    {name="soldier",   def=0.25, atk=1, ui={84,96,121}},
+    {name="commander", def=0.5,  atk=2, ui={84,96,121}},
+    {name="hero",      def=0.75, atk=3, ui={84,96,121}},
 }
 
 --dar armadura (solo si es mejor que la actual)
 function give_armor(lvl)
     plr.armor=max(plr.armor,lvl)
+end
+
+--dano de la espada (sube con cada armadura)
+function plr_atk()
+    if plr.armor>0 then return armors[plr.armor].atk end
+    return 1
 end
 
 --el player recibe dano
