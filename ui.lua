@@ -33,7 +33,21 @@ function start_dlg(lines,on_end,name)
     dlg.t=0
     dlg.on_end=on_end
     dlg.name=name or "old man"
+    dlg.ask=nil
     game_state="int"
+end
+
+--dialogo con pregunta: o=no x=si
+--la ultima frase muestra las opciones
+function ask_dlg(lines,on_yes,on_no,name)
+    start_dlg(lines,nil,name)
+    dlg.ask={yes=on_yes,no=on_no}
+end
+
+--cierra el dialogo y llama a fn
+function end_dlg(fn)
+    game_state="play"
+    if fn then fn() end
 end
 
 --se llama en _update60 cuando game_state=="int"
@@ -44,6 +58,12 @@ function u_dlg()
         dlg.t+=0.5
         --pulsar o muestra la frase entera
         if btnp(4) then dlg.t=#txt end
+        return
+    end
+    --ultima frase de una pregunta: o=no x=si
+    if dlg.ask and dlg.i==#dlg.lines then
+        if btnp(4) then end_dlg(dlg.ask.no)
+        elseif btnp(5) then end_dlg(dlg.ask.yes) end
         return
     end
     --frase completa: o pasa a la siguiente
@@ -68,8 +88,13 @@ function d_dlg()
     --texto
     print(sub(txt,1,flr(dlg.t)),8,104,7)
     --indicador parpadeante cuando la frase esta completa
-    if dlg.t>=#txt and t()%1<0.5 then
-        print("\x8e",112,116,7)
+    if dlg.t>=#txt then
+        if dlg.ask and dlg.i==#dlg.lines then
+            --opciones de la pregunta
+            print("\x8e no  \x97 yes",70,116,10)
+        elseif t()%1<0.5 then
+            print("\x8e",112,116,7)
+        end
     end
 end
 

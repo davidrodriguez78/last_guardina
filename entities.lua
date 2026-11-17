@@ -15,6 +15,7 @@ function i_ent()
     i_spikes()
     i_barriers()
     i_fire()
+    i_castle()
 end
 
 function u_ent()
@@ -22,6 +23,7 @@ function u_ent()
     u_loot()
     u_spikes()
     u_barriers()
+    u_castle()
 end
 
 function d_ent()
@@ -36,6 +38,7 @@ function d_ent()
     end
     d_loot()
     d_barriers()
+    d_castle()
     d_enemies()
     d_txts()
 end
@@ -87,7 +90,7 @@ resp_t=15    --segundos fuera del room para que reaparezcan
 
 --spawns: tipo,room_x,room_y,tile_x,tile_y
 --tipo: 1=slime 2=worm 3=flyeye 4=skull
-spawns="1,1,0,5,5,1,1,0,8,11,1,2,0,6,4,2,2,0,10,8,3,2,0,12,4,2,3,0,3,4,1,3,0,10,4,2,3,0,9,9,3,4,0,6,4,1,4,0,10,7,2,4,0,4,9,2,5,0,7,4,2,5,0,9,7,1,6,0,4,4,1,6,0,10,8,3,6,0,7,12,3,7,0,5,5,4,7,0,11,10,1,0,1,11,3,2,0,1,5,7,1,0,1,7,13,2,1,1,6,5,1,1,1,10,10,3,1,1,12,4,1,2,1,5,4,1,2,1,9,10,2,2,1,12,12,2,3,1,3,5,3,3,1,11,5,1,3,1,10,13,1,4,1,3,5,2,4,1,11,5,1,4,1,12,12,3,5,1,4,4,1,5,1,8,8,2,5,1,12,12,1,6,1,5,5,1,6,1,10,10,3,6,1,12,4,2,7,1,1,10,3,7,1,7,6,4,0,2,4,8,2,0,2,11,4,1,1,2,6,3,2,1,2,5,9,4,1,2,13,13,2,2,2,3,4,4,2,2,12,3,1,2,2,8,13,4,3,2,5,3,3,3,2,10,4,1,3,2,8,13,2,4,2,3,4,4,4,2,12,4,1,4,2,10,13,4,5,2,6,4,3,5,2,11,9,2,5,2,5,12,4,6,2,4,4,4,6,2,11,4,3,6,2,11,9,4,7,2,5,4,4,7,2,11,5,2,7,2,4,11,4,0,3,9,4,3,0,3,5,8,2,0,3,10,12,1,1,3,5,3,2,1,3,7,8,3,1,3,10,13,3,2,3,2,5,4,2,3,10,1,1,2,3,2,9,2,3,3,6,5,4,3,3,11,9,1,3,3,8,13,1,4,3,4,4,2,4,3,10,13,3,4,3,14,12,4,5,3,5,5,4,5,3,10,10,3,5,3,7,12,2,6,3,5,3,4,6,3,8,9,3,6,3,11,13,4,7,3,4,4,4,7,3,11,4,2,7,3,11,11"
+spawns="1,1,0,5,5,1,1,0,8,11,1,2,0,6,4,2,2,0,10,8,3,2,0,12,4,2,3,0,3,4,1,3,0,10,4,2,3,0,9,9,3,4,0,6,4,1,4,0,10,7,2,4,0,4,9,2,5,0,7,4,2,5,0,9,7,1,6,0,4,4,1,6,0,10,8,3,6,0,7,12,3,7,0,5,5,4,7,0,11,10,1,0,1,11,3,2,0,1,5,7,1,0,1,7,13,2,1,1,6,5,1,1,1,10,10,3,1,1,12,4,1,2,1,5,4,1,2,1,9,10,2,2,1,12,12,2,3,1,3,5,3,3,1,11,5,1,3,1,10,13,1,4,1,3,5,2,4,1,11,5,1,4,1,12,12,3,5,1,4,4,1,5,1,8,8,2,5,1,12,12,1,6,1,5,5,1,6,1,10,10,3,6,1,12,4,2,7,1,1,10,3,7,1,7,6,4,0,2,4,8,2,0,2,11,4,1,1,2,6,3,2,1,2,5,9,4,1,2,13,13,2,2,2,3,4,4,2,2,12,3,1,2,2,8,13,4,3,2,5,3,3,3,2,10,4,1,3,2,8,13,2,4,2,3,4,4,4,2,12,4,1,4,2,10,13,4,5,2,6,4,3,5,2,11,9,2,5,2,5,12,4,6,2,2,5,4,6,2,13,8,3,6,2,11,9,4,7,2,5,4,4,7,2,11,5,2,7,2,4,11,4,0,3,9,4,3,0,3,5,8,2,0,3,10,12,1,1,3,5,3,2,1,3,7,8,3,1,3,10,13,3,2,3,2,5,4,2,3,10,1,1,2,3,2,9,2,3,3,6,5,4,3,3,11,9,1,3,3,8,13,1,4,3,4,4,2,4,3,10,13,3,4,3,14,12,4,5,3,5,5,4,5,3,10,10,3,5,3,7,12,2,6,3,5,3,4,6,3,8,9,3,6,3,11,13,4,7,3,4,4,4,7,3,11,4,2,7,3,11,11"
 
 function i_enemies()
     enemies={}
@@ -342,7 +345,7 @@ drop_t=600  --frames que dura un botin en el suelo (10s)
 --msg:  frases al abrirlo (max 3 lineas cada una)
 special_chests={
     ["5,0,9,3"]={item="talis", msg={"you found the\ntalisman!","now you can enter\nthe cave."}},
-    ["7,3,14,13"]={item="keys",  msg={"you found\nthe keys!"}},
+    ["7,3,14,10"]={item="keys",  msg={"you found\nthe keys!"}},
 }
 
 --busca el sprite 122 en el mapa (solo una vez)
@@ -808,5 +811,78 @@ function d_fire()
                 pset(p.x,p.y,c)
             end
         end
+    end
+end
+
+---------------------------------
+-- puerta del castillo (mazmorras)
+---------------------------------
+--mx,my: tile de arriba a la izquierda (2x2 tiles)
+--closed/open: sprites de la puerta (izq-arriba, der-arriba, izq-abajo, der-abajo)
+function i_castle()
+    castle={rx=0,ry=0,mx=5,my=1,
+        x=40,y=8,w=16,h=16,
+        closed={71,72,87,88},
+        open={73,74,89,90},
+        is_open=false, near=false}
+    --al reiniciar vuelve a estar cerrada
+    set_castle(castle.closed)
+end
+
+--pone los 4 sprites de la puerta en el mapa
+function set_castle(sps)
+    local c=castle
+    mset(c.mx,  c.my,  sps[1])
+    mset(c.mx+1,c.my,  sps[2])
+    mset(c.mx,  c.my+1,sps[3])
+    mset(c.mx+1,c.my+1,sps[4])
+end
+
+function open_castle()
+    castle.is_open=true
+    set_castle(castle.open)
+    add_shake(2)
+end
+
+--saca al player de la puerta (hacia abajo)
+function leave_castle()
+    plr.y=castle.y+castle.h+2
+end
+
+--entrar a las mazmorras
+--todavia no existe el cart de las mazmorras
+--cuando exista: load("dungeons.p8")
+function enter_dungeon()
+    start_dlg({"the dungeons are\nnot ready yet..."},leave_castle,"door")
+end
+
+function u_castle()
+    local c=castle
+    c.near=false
+    if room_x!=c.rx or room_y!=c.ry then return end
+    if not c.is_open then
+        --cerca de la puerta cerrada: o para abrir
+        if interact(c.x-2,c.y,c.w+4,c.h+6) then
+            c.near=true
+            if btnp(4) then
+                if plr.keys then
+                    open_castle()
+                    start_dlg({"the keys open\nthe castle door!"},nil,"door")
+                else
+                    start_dlg({"the door is\nlocked."},nil,"door")
+                end
+            end
+        end
+    --puerta abierta: el player entra en el hueco
+    elseif interact(c.x+2,c.y,c.w-4,10) then
+        ask_dlg({"you are entering the\ncastle dungeons."},
+            enter_dungeon,leave_castle,"door")
+    end
+end
+
+function d_castle()
+    local c=castle
+    if c.near and game_state=="play" then
+        print("\x8e",c.x+4,c.y+c.h+2,7)
     end
 end

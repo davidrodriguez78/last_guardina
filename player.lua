@@ -35,10 +35,12 @@ function uplr()
     --empujado por un enemigo: sin control
     if plr.kt>0 then
         plr.kt-=1
+        --las puertas (flag 1) tambien frenan el empujon
+        --si no, el player queda metido en la puerta y no se puede mover
         plr.x=mid(0,plr.x+plr.kx,120)
-        if is_solid() then plr.x=lx end
+        if is_solid() or touch_flag(1) then plr.x=lx end
         plr.y=mid(0,plr.y+plr.ky,120)
-        if is_solid() then plr.y=ly end
+        if is_solid() or touch_flag(1) then plr.y=ly end
         plr.kx*=0.8
         plr.ky*=0.8
         return
