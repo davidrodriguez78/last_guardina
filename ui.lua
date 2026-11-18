@@ -1,3 +1,13 @@
+---------------------------------
+-- dialogos y hud (compartido por todos los carts)
+---------------------------------
+--cada cart tiene que definir:
+--  d_hud()  cosas extra del hud de ese cart
+--los sprites del hud tienen que estar en el mismo numero
+--en todas las hojas: 80 corazon, 83 espada, 100 moneda,
+--82 talisman, 99 llaves, y los de armors (84,96,121)
+--la espada usa hud_sword (cada cart puede cambiarlo)
+
 function i_ui()
     --dialogo
     dlg={
@@ -14,6 +24,7 @@ function i_ui()
         sp3=121
     }
     talisman={sp=0}
+    hud_sword=83  --sprite de la espada en el hud
 end
 
 function u_ui()
@@ -101,12 +112,8 @@ end
 function d_ui()
     --hub--
     rrectfill(0,0,128,8,0,0)
-    --enemigos que quedan en la cueva (visible en toda la cueva)
-    local left=barriers.cave_out.left or 0
-    if is_cave(room_x,room_y) and left>0 then
-        local s="enemies: "..left
-        print(s,64-#s*2,10,8)
-    end
+    --extra de cada cart (ej: enemigos de la cueva)
+    d_hud()
     --dialogo--
     d_dlg()
     --sword and helm
@@ -115,7 +122,7 @@ function d_ui()
         spr(ui[1],helm.x,helm.y)
         spr(ui[2],helm.x+9,0)
         spr(ui[3],helm.x+18,0)
-        spr(83,88,0)--sword
+        spr(hud_sword,88,0)--sword
     end
     --talisman
     --talisman o llaves (nada si no tienes ninguno)

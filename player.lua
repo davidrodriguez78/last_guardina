@@ -1,3 +1,11 @@
+---------------------------------
+-- player (compartido por todos los carts)
+---------------------------------
+--cada cart tiene que definir:
+--  plr_world()  cosas del cart que tocan al player
+--               (devuelve true si lo bloquean)
+--  doors={}     sus puertas (ver check_doors)
+
 function iplr()
     plr={
         sp=1,
@@ -113,28 +121,12 @@ function uplr()
             plr.dy=0
         end
     end
-    --old men
-    old_men.near=false
-    if old_men.rx==room_x and old_men.ry==room_y then
-        --el viejo es solido
-        if interact(old_men.x,old_men.y,old_men.w,old_men.h) then
-            plr.x=lx
-            plr.y=ly
-        end
-        --cerca del viejo? (zona un poco mas grande)
-        if interact(old_men.x-3,old_men.y-3,old_men.w+6,old_men.h+6) then
-            old_men.near=true
-            if btnp(4) then
-                talk_old()
-            end
-        end
-    end
-    --cofres (son solidos)
-    if u_chests() then
+    --cosas propias de cada cart (npcs, cofres...)
+    --devuelve true si algo bloquea al player
+    if plr_world() then
         plr.x=lx
         plr.y=ly
     end
-    --entradas (cuevas, casas, etc)
     if check_doors() then
         plr.x=lx
         plr.y=ly
@@ -257,14 +249,7 @@ end
 --          ej: "keys", "talis", "sword"
 --lock:    (opcional) nombre de la barrera que la bloquea
 --seal:    (opcional) barrera que se cierra para siempre al usarla
-doors={
-    --entrada cueva (bloqueada por la barrera)
-    {rx=7,ry=0,flg=1, to_rx=6,to_ry=2, to_x=62,to_y=20, lock="cave_in"},
-    --salida cueva (bloqueada hasta matar a todos)
-    {rx=6,ry=2,flg=1, to_rx=7,to_ry=0, to_x=62,to_y=28, lock="cave_out", seal="cave_in"},
-    --ejemplo cueva bloqueada:
-    --{rx=3,ry=1,flg=1, to_rx=5,to_ry=3, to_x=56,to_y=100, need="keys"},
-}
+--doors: cada cart define su tabla de puertas
 
 --devuelve true si la puerta esta bloqueada
 function check_doors()

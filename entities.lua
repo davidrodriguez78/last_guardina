@@ -1,3 +1,47 @@
+---------------------------------
+-- hooks del mundo (los usa player.lua / ui.lua)
+---------------------------------
+--puertas del mundo
+doors={
+    --entrada cueva (bloqueada por la barrera)
+    {rx=7,ry=0,flg=1, to_rx=6,to_ry=2, to_x=62,to_y=20, lock="cave_in"},
+    --salida cueva (bloqueada hasta matar a todos)
+    {rx=6,ry=2,flg=1, to_rx=7,to_ry=0, to_x=62,to_y=28, lock="cave_out", seal="cave_in"},
+    --ejemplo cueva bloqueada:
+    --{rx=3,ry=1,flg=1, to_rx=5,to_ry=3, to_x=56,to_y=100, need="keys"},
+}
+
+--viejo y cofres: devuelve true si bloquean al player
+function plr_world()
+    local blk=false
+    old_men.near=false
+    if old_men.rx==room_x and old_men.ry==room_y then
+        --el viejo es solido
+        if interact(old_men.x,old_men.y,old_men.w,old_men.h) then
+            blk=true
+        end
+        --cerca del viejo? (zona un poco mas grande)
+        if interact(old_men.x-3,old_men.y-3,old_men.w+6,old_men.h+6) then
+            old_men.near=true
+            if btnp(4) then
+                talk_old()
+            end
+        end
+    end
+    --cofres (son solidos)
+    if u_chests() then blk=true end
+    return blk
+end
+
+--extra del hud: enemigos que quedan en la cueva
+function d_hud()
+    local left=barriers.cave_out.left or 0
+    if is_cave(room_x,room_y) and left>0 then
+        local s="enemies: "..left
+        print(s,64-#s*2,10,8)
+    end
+end
+
 function i_ent()
     old_men={
         x=4*8,
@@ -851,8 +895,10 @@ end
 
 --entrar a las mazmorras: carga el segundo cart
 --(tiene que estar en la misma carpeta)
+--le pasa al otro cart: vida,monedas,armadura,espada
 function enter_dungeon()
-    load("the_dungeon.p8")
+    load("the_dungeon.p8",nil,
+        plr.life..","..plr.cash..","..plr.armor..","..(plr.sword and 1 or 0))
 end
 
 function u_castle()
