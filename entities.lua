@@ -849,11 +849,10 @@ function leave_castle()
     plr.y=castle.y+castle.h+2
 end
 
---entrar a las mazmorras
---todavia no existe el cart de las mazmorras
---cuando exista: load("dungeons.p8")
+--entrar a las mazmorras: carga el segundo cart
+--(tiene que estar en la misma carpeta)
 function enter_dungeon()
-    start_dlg({"the dungeons are\nnot ready yet..."},leave_castle,"door")
+    load("the_dungeon.p8")
 end
 
 function u_castle()
